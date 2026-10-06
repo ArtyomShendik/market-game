@@ -1,3 +1,5 @@
+import type { AssetCache } from '../assets/AssetCache';
+
 export interface AudioAsset {
   alias: string;
   src: string;
@@ -11,6 +13,8 @@ export class AudioManager {
   private music?: AudioBufferSourceNode;
   private unlocked = false;
 
+  public constructor(private readonly cache: AssetCache) {}
+
   public async load(
     entries: readonly AudioAsset[],
     onProgress?: (progress: number) => void,
@@ -18,12 +22,11 @@ export class AudioManager {
     let completed = 0;
     await Promise.all(
       entries.map(async ({ alias, src }) => {
-        const response = await fetch(src);
-        if (!response.ok) {
-          throw new Error(`Unable to load audio "${alias}": ${response.status}`);
+        if (!this.buffers.has(alias)) {
+          const bytes = await this.cache.getBytes(src);
+          const buffer = await this.context.decodeAudioData(bytes);
+          this.buffers.set(alias, buffer);
         }
-        const buffer = await this.context.decodeAudioData(await response.arrayBuffer());
-        this.buffers.set(alias, buffer);
         completed += 1;
         onProgress?.(completed / entries.length);
       }),

@@ -2,6 +2,7 @@ export { GameApp } from './app/GameApp';
 export type { GameAppOptions, ScreenSize } from './app/GameApp';
 export { VisibilityWatcher } from './app/VisibilityWatcher';
 export type { VisibilityHandler } from './app/VisibilityWatcher';
+export { AssetCache } from './assets/AssetCache';
 export { AssetManager } from './assets/AssetManager';
 export type { AssetPhase, AssetProgress } from './assets/AssetManager';
 export { AudioManager } from './audio/AudioManager';
