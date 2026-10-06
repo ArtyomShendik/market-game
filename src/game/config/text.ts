@@ -1,0 +1,26 @@
+export const TEXT = {
+  title: 'NIGHT MARKET',
+  subtitle: 'ФРУКТОВЫЙ СЛОТ',
+  start: 'НАЧАТЬ ИГРАТЬ',
+  balance: 'БАЛАНС',
+  win: 'ВЫИГРЫШ',
+  bet: 'СТАВКА',
+  spin: 'SPIN',
+  auto: 'АВТО',
+  speed: {
+    seconds3: '3 СЕК',
+    seconds2: '2 СЕК',
+    seconds1: '1 СЕК',
+  },
+  symbol: {
+    mango: 'Манго',
+    pineapple: 'Ананас',
+    watermelon: 'Арбуз',
+    grape: 'Виноград',
+    cherry: 'Вишня',
+    orange: 'Апельсин',
+    lemon: 'Лимон',
+    plum: 'Слива',
+  },
+  launchError: 'Не удалось запустить игру. Подробности в консоли.',
+} as const;
