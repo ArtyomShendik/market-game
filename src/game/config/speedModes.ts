@@ -1,14 +1,11 @@
 import type { SlotTiming } from '../../sdk';
-import { TEXT } from './text';
 
 export interface SpeedMode {
-  label: string;
   timing: SlotTiming;
 }
 
 export const speedModes: readonly SpeedMode[] = [
   {
-    label: TEXT.speed.seconds3,
     timing: {
       spinDuration: 0.62,
       stopDelay: 0.26,
@@ -16,7 +13,6 @@ export const speedModes: readonly SpeedMode[] = [
     },
   },
   {
-    label: TEXT.speed.seconds2,
     timing: {
       spinDuration: 0.52,
       stopDelay: 0.17,
@@ -24,7 +20,6 @@ export const speedModes: readonly SpeedMode[] = [
     },
   },
   {
-    label: TEXT.speed.seconds1,
     timing: {
       spinDuration: 0.31,
       stopDelay: 0.08,

@@ -138,7 +138,11 @@ export class NightMarketGame {
 
     this.slotScreen = new SlotScreen({
       background: this.assets.get<Texture>(ASSET_ALIAS.background),
-      speedIcon: this.assets.get<Texture>(ASSET_ALIAS.icon.speed),
+      speedIcons: [
+        this.assets.get<Texture>(ASSET_ALIAS.icon.speed),
+        this.assets.get<Texture>(ASSET_ALIAS.icon.speedBar),
+        this.assets.get<Texture>(ASSET_ALIAS.icon.speedBars),
+      ],
       autoIcon: this.assets.get<Texture>(ASSET_ALIAS.icon.auto),
       textures,
       callbacks: {

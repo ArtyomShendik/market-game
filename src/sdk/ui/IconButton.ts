@@ -19,6 +19,7 @@ export class IconButton {
   readonly view = new Container();
 
   private readonly plate = new Graphics();
+  private readonly icon: Sprite;
   private readonly captionText: Text | null = null;
   private readonly width: number;
   private readonly height: number;
@@ -35,13 +36,13 @@ export class IconButton {
     this.onPress = options.onPress;
 
     const hasCaption = options.caption !== undefined;
-    const icon = new Sprite(options.icon);
-    icon.anchor.set(0.5);
-    icon.setSize(options.iconSize);
-    icon.position.set(options.width / 2, hasCaption ? 26 : options.height / 2);
+    this.icon = new Sprite(options.icon);
+    this.icon.anchor.set(0.5);
+    this.icon.setSize(options.iconSize);
+    this.icon.position.set(options.width / 2, hasCaption ? 26 : options.height / 2);
 
     this.view.addChild(this.plate);
-    this.view.addChild(icon);
+    this.view.addChild(this.icon);
 
     if (hasCaption) {
       this.captionText = new Text({
@@ -81,6 +82,10 @@ export class IconButton {
       return;
     }
     this.captionText.text = text;
+  }
+
+  setIcon(icon: Texture): void {
+    this.icon.texture = icon;
   }
 
   setActive(active: boolean): void {

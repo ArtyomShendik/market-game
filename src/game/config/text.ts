@@ -7,11 +7,6 @@ export const TEXT = {
   bet: 'СТАВКА',
   spin: 'SPIN',
   auto: 'АВТО',
-  speed: {
-    seconds3: '3 СЕК',
-    seconds2: '2 СЕК',
-    seconds1: '1 СЕК',
-  },
   symbol: {
     mango: 'Манго',
     pineapple: 'Ананас',

@@ -156,7 +156,7 @@ export class SlotController {
       win: formatCoins(this.win),
       winHighlighted: this.win > 0,
       bet: formatCoins(bet),
-      speedLabel: speedModes[this.speedIndex].label,
+      speedIndex: this.speedIndex,
       autoActive: this.auto,
       canSpin: !locked && this.balance >= bet,
       canChangeBet: !locked,

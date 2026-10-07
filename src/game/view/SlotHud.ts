@@ -13,7 +13,7 @@ export interface SlotHudCallbacks {
 }
 
 export interface SlotHudOptions {
-  speedIcon: Texture;
+  speedIcons: readonly Texture[];
   autoIcon: Texture;
   callbacks: SlotHudCallbacks;
 }
@@ -23,7 +23,7 @@ export interface SlotHudState {
   win: string;
   winHighlighted: boolean;
   bet: string;
-  speedLabel: string;
+  speedIndex: number;
   autoActive: boolean;
   canSpin: boolean;
   canChangeBet: boolean;
@@ -42,9 +42,11 @@ export class SlotHud {
   private readonly spinButton: SpinButton;
   private readonly speedButton: IconButton;
   private readonly autoButton: IconButton;
+  private readonly speedIcons: readonly Texture[];
 
   constructor(options: SlotHudOptions) {
     const { callbacks } = options;
+    this.speedIcons = options.speedIcons;
 
     this.balanceView = new StatReadout({
       label: TEXT.balance,
@@ -74,9 +76,8 @@ export class SlotHud {
     this.speedButton = new IconButton({
       width: LAYOUT.iconWidth,
       height: LAYOUT.controlHeight,
-      icon: options.speedIcon,
-      iconSize: LAYOUT.iconSize,
-      caption: '',
+      icon: options.speedIcons[0],
+      iconSize: 40,
       colors: iconColors,
       onPress: callbacks.onSpeed,
     });
@@ -150,7 +151,7 @@ export class SlotHud {
     this.stepper.setDecreaseEnabled(state.canDecreaseBet);
     this.stepper.setIncreaseEnabled(state.canIncreaseBet);
     this.spinButton.setEnabled(state.canSpin);
-    this.speedButton.setCaption(state.speedLabel);
+    this.speedButton.setIcon(this.speedIcons[state.speedIndex] ?? this.speedIcons[0]);
     this.speedButton.setEnabled(state.canChangeSpeed);
     this.autoButton.setActive(state.autoActive);
     this.autoButton.setEnabled(state.canToggleAuto);

@@ -8,7 +8,7 @@ import { SlotHud, type SlotHudCallbacks } from '../view/SlotHud';
 
 export interface SlotScreenOptions {
   background: Texture;
-  speedIcon: Texture;
+  speedIcons: readonly Texture[];
   autoIcon: Texture;
   textures: ReadonlyMap<string, Texture>;
   callbacks: SlotHudCallbacks;
@@ -29,7 +29,7 @@ export class SlotScreen {
     this.backdrop = new SceneBackdrop(options.background);
     this.field = new ReelField({ textures: options.textures });
     this.hud = new SlotHud({
-      speedIcon: options.speedIcon,
+      speedIcons: options.speedIcons,
       autoIcon: options.autoIcon,
       callbacks: options.callbacks,
     });
