@@ -63,6 +63,7 @@ export class StartScreen {
     const subtitleHeight = 20;
     const gap = compact ? 18 : 28;
     this.title.style.fontSize = titleSize;
+    this.title.style.letterSpacing = compact ? 2 : 6;
 
     const stack = emblemSize + gap + titleSize + gap + subtitleHeight + gap + buttonHeight;
     const availableHeight = size.height - safe.top - safe.bottom - 24;
@@ -77,7 +78,8 @@ export class StartScreen {
     this.emblem.position.set(centerX, top + (emblemSize * scale) / 2);
     top += (emblemSize + gap) * scale;
 
-    this.title.scale.set(scale);
+    const titleScale = Math.min(scale, availableWidth / Math.max(this.title.width, 1));
+    this.title.scale.set(titleScale);
     this.title.position.set(centerX, top + (titleSize * scale) / 2);
     top += (titleSize + gap) * scale;
 

@@ -9,6 +9,8 @@ export interface ReelFieldOptions {
 }
 
 export class ReelField {
+  static readonly CAPTION_FONT = 22;
+
   readonly view = new Container();
 
   private readonly machine: SlotMachine;
@@ -44,7 +46,8 @@ export class ReelField {
       style: {
         fill: THEME.frame,
         fontFamily: 'Georgia, serif',
-        fontSize: 22,
+        fontSize: ReelField.CAPTION_FONT,
+        stroke: { color: THEME.background, width: 5 },
       },
     });
     this.caption.anchor.set(0.5, 0);
@@ -73,6 +76,12 @@ export class ReelField {
 
   setTiming(timing: SlotTiming): void {
     this.machine.setTiming(timing);
+  }
+
+  /** Держит подпись в экранных пикселях, поле при этом может быть мелким. */
+  setCaptionSize(screenPixels: number, fieldScale: number): void {
+    const scale = fieldScale > 0 ? screenPixels / (ReelField.CAPTION_FONT * fieldScale) : 1;
+    this.caption.scale.set(scale);
   }
 
   spin(): Promise<void> {

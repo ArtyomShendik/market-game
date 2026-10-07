@@ -64,10 +64,27 @@ export class LoadingScreen {
     this.emblem.width = emblemSize;
     this.emblem.height = emblemSize;
     this.emblem.position.set(width / 2, height / 2 - (compact ? 70 : 90));
-    this.title.style.fontSize = compact ? 26 : 34;
+    this.fitTitle(Math.max(120, width - 48), compact ? 26 : 34, compact ? 2 : 6);
     this.title.position.set(width / 2, height / 2 + (compact ? 24 : 42));
     this.percent.position.set(width / 2, height / 2 + (compact ? 110 : 136));
     this.drawBar();
+  }
+
+  private fitTitle(maxWidth: number, fontSize: number, tracking: number): void {
+    this.title.scale.set(1);
+    this.title.style.fontSize = fontSize;
+    this.title.style.letterSpacing = tracking;
+
+    while (fontSize > 16 && this.title.width > maxWidth) {
+      fontSize -= 1;
+      tracking = Math.max(0, tracking - 0.25);
+      this.title.style.fontSize = fontSize;
+      this.title.style.letterSpacing = tracking;
+    }
+
+    if (this.title.width > maxWidth) {
+      this.title.scale.set(maxWidth / this.title.width);
+    }
   }
 
   public setProgress(value: number): void {
