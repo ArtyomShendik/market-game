@@ -1,6 +1,7 @@
 import { Container, Sprite, Text, type Texture } from 'pixi.js';
 import { SpinButton, type ScreenSize } from '../../sdk';
 import { buttonColors } from '../config/palette';
+import { TEXT } from '../config/text';
 import { THEME } from '../config/theme';
 import { createTitle, SceneBackdrop } from '../view/decor';
 import { readSafeArea } from '../view/safeArea';
@@ -26,11 +27,11 @@ export class StartScreen {
     this.emblem = new Sprite(options.emblem);
     this.emblem.anchor.set(0.5);
 
-    this.title = createTitle('NIGHT MARKET', 46);
+    this.title = createTitle(TEXT.title, 46);
     this.title.anchor.set(0.5);
 
     this.subtitle = new Text({
-      text: 'ФРУКТОВЫЙ СЛОТ',
+      text: TEXT.subtitle,
       style: {
         fill: THEME.label,
         fontFamily: 'Georgia, serif',
@@ -43,7 +44,7 @@ export class StartScreen {
     this.start = new SpinButton({
       width: 300,
       height: 76,
-      label: 'НАЧАТЬ ИГРАТЬ',
+      label: TEXT.start,
       colors: buttonColors,
       onPress: options.onStart,
     });

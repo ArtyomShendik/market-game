@@ -1,5 +1,6 @@
 import { Container, type Text, type Texture } from 'pixi.js';
 import type { ScreenSize } from '../../sdk';
+import { TEXT } from '../config/text';
 import { createTitle, SceneBackdrop } from '../view/decor';
 import { ReelField } from '../view/ReelField';
 import { readSafeArea } from '../view/safeArea';
@@ -32,7 +33,7 @@ export class SlotScreen {
       autoIcon: options.autoIcon,
       callbacks: options.callbacks,
     });
-    this.title = createTitle('NIGHT MARKET', 40);
+    this.title = createTitle(TEXT.title, 40);
 
     this.view.addChild(this.backdrop.view, this.title, this.field.view, this.hud.view);
   }

@@ -8,7 +8,7 @@ export interface AudioAsset {
 export type StopAudio = () => void;
 
 export class AudioManager {
-  private readonly context = new AudioContext();
+  private readonly context = createContext();
   private readonly buffers = new Map<string, AudioBuffer>();
   private music?: AudioBufferSourceNode;
   private unlocked = false;
@@ -24,7 +24,7 @@ export class AudioManager {
       entries.map(async ({ alias, src }) => {
         if (!this.buffers.has(alias)) {
           const bytes = await this.cache.getBytes(src);
-          const buffer = await this.context.decodeAudioData(bytes);
+          const buffer = await this.decode(bytes);
           this.buffers.set(alias, buffer);
         }
         completed += 1;
@@ -33,9 +33,16 @@ export class AudioManager {
     );
   }
 
-  public async unlock(): Promise<void> {
+  /**
+   * Снимает блокировку Safari. Вызывать синхронно из жеста:
+   * после await iOS уже не считает запуск звука действием пользователя.
+   */
+  public unlock(): void {
     if (this.context.state !== 'running') {
-      await this.context.resume();
+      void this.context.resume();
+    }
+    if (!this.unlocked) {
+      this.playSilence();
     }
     this.unlocked = true;
   }
@@ -84,6 +91,25 @@ export class AudioManager {
     };
   }
 
+  private decode(bytes: ArrayBuffer): Promise<AudioBuffer> {
+    const copy = bytes.slice(0);
+    return new Promise((resolve, reject) => {
+      const result = this.context.decodeAudioData(copy, resolve, reject);
+      if (result instanceof Promise) {
+        void result.then(resolve, reject);
+      }
+    });
+  }
+
+  /** Короткий буфер в том же жесте, иначе iOS не открывает аудиосессию. */
+  private playSilence(): void {
+    const buffer = this.context.createBuffer(1, 1, this.context.sampleRate);
+    const source = this.context.createBufferSource();
+    source.buffer = buffer;
+    source.connect(this.context.destination);
+    source.start();
+  }
+
   private createSource(
     alias: string,
     volume: number,
@@ -102,4 +128,13 @@ export class AudioManager {
     source.connect(gain).connect(this.context.destination);
     return { source, gain };
   }
+}
+
+function createContext(): AudioContext {
+  const scope = window as Window & { webkitAudioContext?: typeof AudioContext };
+  const AudioCtx = window.AudioContext ?? scope.webkitAudioContext;
+  if (!AudioCtx) {
+    throw new Error('Web Audio is not supported');
+  }
+  return new AudioCtx();
 }

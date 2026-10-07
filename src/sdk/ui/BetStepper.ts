@@ -2,6 +2,7 @@ import { Container, Graphics, Text } from 'pixi.js';
 import { SpinButton, type SpinButtonColors } from './SpinButton';
 
 export interface BetStepperOptions {
+  label: string;
   colors: SpinButtonColors;
   onDecrease: () => void;
   onIncrease: () => void;
@@ -47,7 +48,7 @@ export class BetStepper {
       .roundRect(0, 0, valueWidth, button, 18)
       .stroke({ width: 4, color: options.colors.border });
     const caption = new Text({
-      text: 'СТАВКА',
+      text: options.label,
       style: {
         fill: options.colors.border,
         fontFamily: 'Georgia, serif',

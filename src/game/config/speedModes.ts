@@ -1,19 +1,14 @@
 import type { SlotTiming } from '../../sdk';
+import { TEXT } from './text';
 
 export interface SpeedMode {
-  /** Подпись на кнопке ускорения. */
   label: string;
   timing: SlotTiming;
 }
 
-/**
- * Три режима скорости. Тайминги подобраны так, чтобы пять барабанов
- * полностью вставали примерно за 3, 2 и 1 секунду: чем быстрее режим,
- * тем выше скорость ленты и короче разгон, эстафета и торможение.
- */
 export const speedModes: readonly SpeedMode[] = [
   {
-    label: '3 СЕК',
+    label: TEXT.speed.seconds3,
     timing: {
       spinDuration: 0.62,
       stopDelay: 0.26,
@@ -21,7 +16,7 @@ export const speedModes: readonly SpeedMode[] = [
     },
   },
   {
-    label: '2 СЕК',
+    label: TEXT.speed.seconds2,
     timing: {
       spinDuration: 0.52,
       stopDelay: 0.17,
@@ -29,7 +24,7 @@ export const speedModes: readonly SpeedMode[] = [
     },
   },
   {
-    label: '1 СЕК',
+    label: TEXT.speed.seconds1,
     timing: {
       spinDuration: 0.31,
       stopDelay: 0.08,
