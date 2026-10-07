@@ -1,11 +1,10 @@
-import { ASSET_ALIAS } from '../config/assetManifest';
 import { TEXT } from '../config/text';
 
 export interface SymbolArt {
   id: string;
   name: string;
   color: number;
-  asset: string;
+  frame: string;
 }
 
 export const SYMBOL = {
@@ -20,34 +19,14 @@ export const SYMBOL = {
 } as const;
 
 export const symbols: readonly SymbolArt[] = [
-  { id: SYMBOL.MANGO, name: TEXT.symbol.mango, color: 0xf0a030, asset: ASSET_ALIAS.symbol.mango },
-  {
-    id: SYMBOL.PINEAPPLE,
-    name: TEXT.symbol.pineapple,
-    color: 0xe8c56b,
-    asset: ASSET_ALIAS.symbol.pineapple,
-  },
-  {
-    id: SYMBOL.WATERMELON,
-    name: TEXT.symbol.watermelon,
-    color: 0xd4534a,
-    asset: ASSET_ALIAS.symbol.watermelon,
-  },
-  { id: SYMBOL.GRAPE, name: TEXT.symbol.grape, color: 0x7a4ea3, asset: ASSET_ALIAS.symbol.grape },
-  {
-    id: SYMBOL.CHERRY,
-    name: TEXT.symbol.cherry,
-    color: 0xe24b5a,
-    asset: ASSET_ALIAS.symbol.cherry,
-  },
-  {
-    id: SYMBOL.ORANGE,
-    name: TEXT.symbol.orange,
-    color: 0xf08a2a,
-    asset: ASSET_ALIAS.symbol.orange,
-  },
-  { id: SYMBOL.LEMON, name: TEXT.symbol.lemon, color: 0xf2d04a, asset: ASSET_ALIAS.symbol.lemon },
-  { id: SYMBOL.PLUM, name: TEXT.symbol.plum, color: 0x8b6cc4, asset: ASSET_ALIAS.symbol.plum },
+  { id: SYMBOL.MANGO, name: TEXT.symbol.mango, color: 0xf0a030, frame: 'mango.png' },
+  { id: SYMBOL.PINEAPPLE, name: TEXT.symbol.pineapple, color: 0xe8c56b, frame: 'pineapple.png' },
+  { id: SYMBOL.WATERMELON, name: TEXT.symbol.watermelon, color: 0xd4534a, frame: 'watermelon.png' },
+  { id: SYMBOL.GRAPE, name: TEXT.symbol.grape, color: 0x7a4ea3, frame: 'grape.png' },
+  { id: SYMBOL.CHERRY, name: TEXT.symbol.cherry, color: 0xe24b5a, frame: 'cherry.png' },
+  { id: SYMBOL.ORANGE, name: TEXT.symbol.orange, color: 0xf08a2a, frame: 'orange.png' },
+  { id: SYMBOL.LEMON, name: TEXT.symbol.lemon, color: 0xf2d04a, frame: 'lemon.png' },
+  { id: SYMBOL.PLUM, name: TEXT.symbol.plum, color: 0x8b6cc4, frame: 'plum.png' },
 ];
 
 export const symbolIds: ReadonlySet<string> = new Set(symbols.map((symbol) => symbol.id));
